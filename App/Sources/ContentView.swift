@@ -1,5 +1,6 @@
 import SwiftUI
 import HTTPClient
+import Networking
 
 public struct ContentView: View {
     public init() {}
@@ -12,6 +13,12 @@ public struct ContentView: View {
                     await self.testHTTPClient()
                 }
             }
+    }
+    
+    func testNetworking() {
+        
+        let someStuff = Networking()
+        
     }
     
     func testHTTPClient() async {

@@ -14,7 +14,8 @@ let project = Project(
                 "Resources",
             ],
             dependencies: [
-                .project(target: "HTTPClient", path: "../HTTPClient")
+                .project(target: "HTTPClient", path: "../HTTPClient"),
+                .project(target: "Networking", path: "../Networking")
             ]
         ),
         .target(
