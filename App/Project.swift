@@ -2,6 +2,13 @@ import ProjectDescription
 
 let project = Project(
     name: "SwiftKitLab",
+    settings: .settings(
+        base: [
+            "SWIFT_VERSION": "6",
+            "SWIFT_APPROACHABLE_CONCURRENCY": "YES",
+            "SWIFT_DEFAULT_ACTOR_ISOLATION": "nonisolated",
+        ]
+    ),
     targets: [
         .target(
             name: "SwiftKitLab",
