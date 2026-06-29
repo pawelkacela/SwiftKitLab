@@ -6,7 +6,12 @@
 //
 
 
-struct Product: Codable {
+struct Product: Codable, Identifiable {
+    let id: Int
     let title: String
     let price: Double
+}
+
+extension Product {
+    static let example = Product(id: 1, title: "Example", price: 10.0)
 }
