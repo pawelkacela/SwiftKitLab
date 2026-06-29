@@ -34,17 +34,8 @@ class ProductsViewModel {
 }
 
 
-struct Product: Codable {
-    let title: String
-    let price: Double
-}
 
-struct ProductsResponse: Codable {
-    let products: [Product]
-    let total: Int
-    let skip: Int
-    let limit: Int
-}
+
 
 
 import Playgrounds
