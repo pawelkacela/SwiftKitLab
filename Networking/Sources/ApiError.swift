@@ -12,6 +12,7 @@ public enum ApiError: Error, LocalizedError {
     case requestFailed(statusCode: Int, message: String?)
     case networkError(Error)
     case taskCancellation
+    case invalidURL
     
     public var errorDescription: String? {
         switch self {
@@ -23,6 +24,8 @@ public enum ApiError: Error, LocalizedError {
             error.localizedDescription
         case .taskCancellation:
             "Request was cancelled"
+        case .invalidURL:
+            "Invalid URL"
         }
     }
 }
