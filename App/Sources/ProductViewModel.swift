@@ -11,30 +11,30 @@ import Networking
 @Observable
 class ProductsViewModel {
     
-    var products: [Product] = []
-    let client = APIClient()
+    var products: [Product]
+    var errorMessage: String?
+    
+    let service: ProductService
+    
+    init(products: [Product] = [],
+         service: ProductService = DefaultProductService()
+    ) {
+        self.products = products
+        self.service = service
+    }
     
     func fetchProducts() async {
         
-        // step 1
-        let url = URL(string: "https://dummyjson.com/products?limit=10&skip=10&select=title,price")
-        let request = URLRequest(url: url!)
-        
         do {
-            let productsResponse = try await client.fetch(request: request, ProductsResponse.self)
-            self.products = productsResponse.products
-            print("products: \(products.count)")
+            self.products = try await service.fetch(skip: 10, limit: 10)
         }
         catch {
-            print(error)
+            self.errorMessage = error.localizedDescription
         }
         
     }
     
 }
-
-
-
 
 
 
