@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Networking
 
 public enum HTTPMethod: String {
     case get = "GET"
@@ -16,7 +15,7 @@ public enum HTTPMethod: String {
     case patch = "PATCH"
 }
 
-protocol Endpoint {
+public protocol Endpoint {
     
     var path: String { get }
     var method: HTTPMethod { get }
@@ -26,7 +25,7 @@ protocol Endpoint {
 }
 
 
-extension Endpoint {
+public extension Endpoint {
     
     func makeRequest(baseURL: URL) throws -> URLRequest {
         
@@ -44,31 +43,4 @@ extension Endpoint {
         
         return request
     }
-}
-
-struct ProductEndpoint: Endpoint {
-    
-    let path: String = "/products"
-    let method: HTTPMethod = .get
-    
-    var limit: Int
-    var skip: Int
-    
-    var queryItems: [URLQueryItem] {
-        let items: [URLQueryItem] = [
-            URLQueryItem(name: "limit", value: "\(limit)"),
-            URLQueryItem(name: "skip", value: "\(skip)")
-        ]
-        
-        return items
-    }
-    
-}
-
-struct CategoryEndpoint: Endpoint {
-    
-    let path: String = "/products/category-list"
-    let method: HTTPMethod = .get
-    var queryItems: [URLQueryItem] { [] }
-    
 }
