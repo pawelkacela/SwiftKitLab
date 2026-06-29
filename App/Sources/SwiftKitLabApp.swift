@@ -4,7 +4,7 @@ import SwiftUI
 struct SwiftKitLabApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProductListView(viewModel: ProductsViewModel())
         }
     }
 }
