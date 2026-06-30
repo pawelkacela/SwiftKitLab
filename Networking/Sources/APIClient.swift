@@ -45,12 +45,7 @@ public struct APIClient: Sendable {
         }
         
         // step 3
-//        return try JSONDecoder().decode(type, from: data)
-        #warning("this should prevent runing decoding on main thread, but consider using commented out line instead")
-        
-        return try await Task.detached {
-            try JSONDecoder().decode(type, from: data)
-        }.value
+        return try JSONDecoder().decode(type, from: data)
         
     }
     
