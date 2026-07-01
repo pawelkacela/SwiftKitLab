@@ -5,6 +5,7 @@ let workspace = Workspace(
     projects: [
         "App",
         "HTTPClient",
-        "Networking"
+        "Networking",
+        "AppDomain"
     ]
 )

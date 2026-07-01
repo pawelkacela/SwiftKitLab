@@ -22,7 +22,8 @@ let project = Project(
             ],
             dependencies: [
                 .project(target: "HTTPClient", path: "../HTTPClient"),
-                .project(target: "Networking", path: "../Networking")
+                .project(target: "Networking", path: "../Networking"),
+                .project(target: "AppDomain", path: "../AppDomain")
             ]
         ),
         .target(
