@@ -14,7 +14,9 @@ struct ProductListView: View {
     var body: some View {
         List {
             ForEach(viewModel.products) { product in
-                Text(product.title)
+                ProductRow(product: product)
+                    .padding(40)
+                
             }
         }
         .overlay(content: {
@@ -26,16 +28,44 @@ struct ProductListView: View {
         .task {
             await viewModel.fetchProducts()
         }
+        .onTriggerLoadAt(triggerDistance: 200, of: {
+          Task {
+                await viewModel.fetchMore()
+            }
+        })
+
+
     }
 }
 
-#Preview("sucess") {
+struct ProductRow: View {
+    let product: Product
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(product.title)
+            Text("\(product.id)")
+        }
+        .padding(40)
+    }
+}
+
+
+#Preview("ProductRow") {
+    ProductRow(product: Product.example)
+}
+
+#Preview("API") {
+    @State @Previewable var viewModel = ProductsViewModel(service: DefaultProductService())
+    ProductListView(viewModel: viewModel)
+}
+
+#Preview("Sucess") {
     @State @Previewable var viewModel = ProductsViewModel(service: MockProductService())
     ProductListView(viewModel: viewModel)
 }
 
 
-#Preview("error") {
+#Preview("Error") {
     @State @Previewable var viewModel = ProductsViewModel(service: MockProductService(error: .invalidResponse))
     ProductListView(viewModel: viewModel)
 }
