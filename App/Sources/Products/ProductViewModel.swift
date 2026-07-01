@@ -24,14 +24,22 @@ class ProductsViewModel {
     }
     
     func fetchProducts() async {
-        
         do {
-            self.products = try await service.fetch(skip: 10, limit: 10)
+            self.products = try await service.fetch(skip: 0, limit: 10)
         }
         catch {
             self.errorMessage = error.localizedDescription
         }
-        
+    }
+    
+    func fetchMore() async {
+        do {
+            let newProducts = try await service.fetch(skip: products.count, limit: 10)
+            self.products.append(contentsOf: newProducts)
+        }
+        catch {
+            self.errorMessage = error.localizedDescription
+        }
     }
     
 }
