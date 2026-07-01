@@ -13,6 +13,7 @@ class ProductsViewModel {
     
     var products: [Product]
     var errorMessage: String?
+    var isLoading: Bool = false
     
     let service: ProductService
     
@@ -24,6 +25,12 @@ class ProductsViewModel {
     }
     
     func fetchProducts() async {
+        
+        guard products.isEmpty else { return }
+        
+        isLoading = true
+        defer { isLoading = false }
+        
         do {
             self.products = try await service.fetch(skip: 0, limit: 10)
         }
@@ -33,6 +40,10 @@ class ProductsViewModel {
     }
     
     func fetchMore() async {
+        guard isLoading == false else { return }
+        isLoading = true
+        defer { isLoading = false }
+        
         do {
             let newProducts = try await service.fetch(skip: products.count, limit: 10)
             self.products.append(contentsOf: newProducts)
