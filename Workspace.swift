@@ -4,8 +4,9 @@ let workspace = Workspace(
     name: "SwiftKitLab",
     projects: [
         "App",
-        "HTTPClient",
         "Networking",
-        "AppDomain"
+        "AppDomain",
+        "ProductsAPI",
+        "ProductsData"
     ]
 )
