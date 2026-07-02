@@ -18,7 +18,11 @@ let project = Project(
             buildableFolders: [
                 "Sources",
             ],
-            dependencies: []
+            dependencies: [
+                .project(target: "AppDomain", path: "../AppDomain"),
+                .project(target: "ProductsAPI", path: "../ProductsAPI"),
+                .project(target: "Networking", path: "../Networking")
+            ]
         ),
         .target(
             name: "ProductsDataTests",
