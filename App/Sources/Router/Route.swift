@@ -10,4 +10,5 @@ import Foundation
 
 enum Route: Hashable {
     case detail(id: Int)
+    case productList
 }
