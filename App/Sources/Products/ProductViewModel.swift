@@ -19,7 +19,7 @@ class ProductsViewModel {
     let service: ProductService
     
     init(products: [ProductDTO] = [],
-         service: ProductService = DefaultProductService()
+         service: ProductService
     ) {
         self.products = products
         self.service = service
@@ -61,8 +61,10 @@ class ProductsViewModel {
 import Playgrounds
 
 #Playground {
-    let vm = ProductsViewModel()
+    let service = DefaultProductService()
+    let vm = ProductsViewModel(service: service)
     Task {
         await vm.fetchProducts()
+        print(vm.products.count)
     }
 }
