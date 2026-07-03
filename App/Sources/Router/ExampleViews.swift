@@ -54,6 +54,10 @@ struct HomeView: View {
             Button("Go to detail") {
                 viewModel.didSelectItem()
             }
+            
+            Button("Products") {
+                viewModel.didTapProducts()
+            }
         }
     }
 }
@@ -67,6 +71,10 @@ class HomeViewModel {
 
     init(router: Router) {
         self.router = router
+    }
+    
+    func didTapProducts() {
+        router.push(.productList)
     }
 
     func didSelectItem() {
