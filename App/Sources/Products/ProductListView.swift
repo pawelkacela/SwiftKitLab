@@ -56,10 +56,10 @@ struct ProductRow: View {
     ProductRow(product: ProductDTO.example)
 }
 
-#Preview("API") {
-    @State @Previewable var viewModel = ProductsViewModel(service: DefaultProductService())
-    ProductListView(viewModel: viewModel)
-}
+//#Preview("API") {
+//    @State @Previewable var viewModel = ProductsViewModel(service: DefaultProductService())
+//    ProductListView(viewModel: viewModel)
+//}
 
 #Preview("Sucess") {
     @State @Previewable var viewModel = ProductsViewModel(service: MockProductService())
