@@ -12,17 +12,14 @@ import Networking
 
 
 public final class DefaultProductService: ProductService {
-//    private let client: APIClient
-    private let client = APIClient()
+    private let client: APIClient
     private let baseURL: URL
-
-    #warning("WIP")
     
     public init(
-//        client: APIClient,
-                baseURL: URL = URL(string: "https://dummyjson.com")!
+        client: APIClient,
+        baseURL: URL
     ) {
-//        self.client = client
+        self.client = client
         self.baseURL = baseURL
     }
 
