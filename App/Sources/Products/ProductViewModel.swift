@@ -55,16 +55,3 @@ class ProductsViewModel {
     }
     
 }
-
-
-
-import Playgrounds
-
-#Playground {
-    let service = DefaultProductService()
-    let vm = ProductsViewModel(service: service)
-    Task {
-        await vm.fetchProducts()
-        print(vm.products.count)
-    }
-}
