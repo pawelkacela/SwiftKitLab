@@ -7,10 +7,15 @@
 
 import Foundation
 import SwiftUI
+import ProductsData
+import Networking
 
 struct RootView: View {
     
     @Bindable var router: Router
+    
+    private let apiClient = APIClient()
+    private let baseURL = URL(string: "https://dummyjson.com")!
 
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -27,6 +32,10 @@ struct RootView: View {
         switch route {
         case .detail(let id):
             DetailView(viewModel: DetailViewModel(id: id, router: router))
+        case .productList:
+            let service = DefaultProductService(client: apiClient, baseURL: baseURL)
+            let vm = ProductsViewModel(service: service)
+            ProductListView(viewModel: vm)
         }
     }
 }
