@@ -2,9 +2,12 @@ import SwiftUI
 
 @main
 struct SwiftKitLabApp: App {
+    
+    @State private var router = Router()
+    
     var body: some Scene {
         WindowGroup {
-            ProductListView(viewModel: ProductsViewModel())
+            RootView(router: router)
         }
     }
 }
