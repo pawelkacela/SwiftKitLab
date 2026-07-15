@@ -25,7 +25,7 @@ class ProductsViewModel {
     }
     
     func fetchProducts() async {
-        
+        guard isLoading == false else { return }
         guard products.isEmpty else { return }
         
         isLoading = true
