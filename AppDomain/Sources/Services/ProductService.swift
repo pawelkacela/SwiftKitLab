@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol ProductService {
-    func fetch(skip: Int, limit: Int) async throws -> [ProductDTO]
+    func fetch(skip: Int, limit: Int) async throws -> [Product]
 }

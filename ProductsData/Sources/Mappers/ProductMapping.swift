@@ -11,8 +11,8 @@ import Foundation
 import AppDomain
 import ProductsAPI
 
-extension Product {
-    public func toDTO() -> ProductDTO {
-        ProductDTO(id: id, title: title, price: price)
+extension ProductAPIModel {
+    public func toDomain() -> Product {
+        Product(id: id, title: title, price: price)
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ProductsData
 import AppDomain
 
 struct ProductListView: View {
@@ -41,7 +40,7 @@ struct ProductListView: View {
 }
 
 struct ProductRow: View {
-    let product: ProductDTO
+    let product: Product
     var body: some View {
         VStack(alignment: .leading) {
             Text(product.title)
@@ -51,9 +50,13 @@ struct ProductRow: View {
     }
 }
 
+#if DEBUG
+import ProductsData
+#endif
+
 
 #Preview("ProductRow") {
-    ProductRow(product: ProductDTO.example)
+    ProductRow(product: Product.example)
 }
 
 //#Preview("API") {

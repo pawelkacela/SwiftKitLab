@@ -8,7 +8,7 @@
 import Foundation
 
 public struct ProductsResponse: Codable {
-   public let products: [Product]
+   public let products: [ProductAPIModel]
    public let total: Int
    public let skip: Int
    public let limit: Int

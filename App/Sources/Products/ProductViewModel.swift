@@ -6,19 +6,18 @@
 //
 
 import Foundation
-import ProductsData
 import AppDomain
 
 @Observable
 class ProductsViewModel {
     
-    var products: [ProductDTO]
+    var products: [Product]
     var errorMessage: String?
     var isLoading: Bool = false
     
     let service: ProductService
     
-    init(products: [ProductDTO] = [],
+    init(products: [Product] = [],
          service: ProductService
     ) {
         self.products = products

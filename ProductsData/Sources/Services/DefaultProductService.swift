@@ -23,27 +23,27 @@ public final class DefaultProductService: ProductService {
         self.baseURL = baseURL
     }
 
-    public func fetch(skip: Int, limit: Int) async throws -> [ProductDTO] {
+    public func fetch(skip: Int, limit: Int) async throws -> [Product] {
         let endpoint = ProductEndpoint(limit: limit, skip: skip)
         let request = try endpoint.makeRequest(baseURL: baseURL)
         let response = try await client.fetch(request: request, ProductsResponse.self)
-        return response.products.map { $0.toDTO() }
+        return response.products.map { $0.toDomain() }
     }
 }
 
 public struct MockProductService: ProductService {
     
     let error: ApiError?
-    let result: [ProductDTO]
+    let result: [Product]
     
     public init(error: ApiError? = nil,
-         result: [ProductDTO] = [ProductDTO.example]
+         result: [Product] = [Product.example]
     ) {
         self.error = error
         self.result = result
     }
     
-    public func fetch(skip: Int, limit: Int) async throws -> [ProductDTO] {
+    public func fetch(skip: Int, limit: Int) async throws -> [Product] {
         if let error {
             throw error
         } else {
