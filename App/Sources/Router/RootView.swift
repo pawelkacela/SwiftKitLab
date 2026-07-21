@@ -13,9 +13,15 @@ import Networking
 struct RootView: View {
     
     @Bindable var router: Router
+    private let dependencies: AppDependencies
+
+    init(router: Router,
+         dependencies: AppDependencies = .init()
+    ) {
+        self.router = router
+        self.dependencies = dependencies
+    }
     
-    private let apiClient = APIClient()
-    private let baseURL = URL(string: "https://dummyjson.com")!
 
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -33,8 +39,7 @@ struct RootView: View {
         case .detail(let id):
             DetailView(viewModel: DetailViewModel(id: id, router: router))
         case .productList:
-            let service = DefaultProductService(client: apiClient, baseURL: baseURL)
-            let vm = ProductsViewModel(service: service)
+            let vm = ProductsViewModel(service: dependencies.productService)
             ProductListView(viewModel: vm)
         }
     }
