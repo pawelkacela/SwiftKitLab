@@ -8,7 +8,7 @@
 import Foundation
 import Networking
 
-public struct CategoryEndpoint: Endpoint {
+public struct ProductCategoriesEndpoint: Endpoint {
     
     public let path: String = "/products/category-list"
     public let method: HTTPMethod = .get
