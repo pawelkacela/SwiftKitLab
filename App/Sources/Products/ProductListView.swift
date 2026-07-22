@@ -41,16 +41,6 @@ struct ProductListView: View {
 
 
 
-#if DEBUG
-import ProductsData
-#endif
-
-
-//#Preview("API") {
-//    @State @Previewable var viewModel = ProductsViewModel(service: DefaultProductService())
-//    ProductListView(viewModel: viewModel)
-//}
-
 #Preview("Sucess") {
     @State @Previewable var viewModel = ProductsViewModel(service: MockProductService())
     ProductListView(viewModel: viewModel)
