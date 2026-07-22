@@ -7,6 +7,7 @@
 
 import Foundation
 import Networking
+import ProductsAPI
 
 protocol CategoryService {
     func fetch() async throws -> [String]

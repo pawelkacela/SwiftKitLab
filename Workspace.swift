@@ -7,7 +7,6 @@ let workspace = Workspace(
         "Networking",
         "AppDomain",
         "ProductsAPI",
-        "ProductsData",
-        "CategoryAPI",
+        "ProductsData"
     ]
 )
