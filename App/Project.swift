@@ -23,7 +23,6 @@ let project = Project(
             dependencies: [
                 .project(target: "Networking", path: "../Networking"),
                 .project(target: "AppDomain", path: "../AppDomain"),
-                .project(target: "ProductsAPI", path: "../ProductsAPI"),
                 .project(target: "ProductsData", path: "../ProductsData")
             ]
         ),
