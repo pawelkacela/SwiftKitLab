@@ -39,25 +39,12 @@ struct ProductListView: View {
     }
 }
 
-struct ProductRow: View {
-    let product: Product
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(product.title)
-            Text("\(product.id)")
-        }
-        .padding(40)
-    }
-}
+
 
 #if DEBUG
 import ProductsData
 #endif
 
-
-#Preview("ProductRow") {
-    ProductRow(product: Product.example)
-}
 
 //#Preview("API") {
 //    @State @Previewable var viewModel = ProductsViewModel(service: DefaultProductService())
