@@ -32,7 +32,11 @@ let project = Project(
             buildableFolders: [
                 "Tests",
             ],
-            dependencies: [.target(name: "ProductsData")]
+            dependencies: [
+                .target(name: "ProductsData"),
+                .project(target: "AppDomain", path: "../AppDomain"),
+                .project(target: "ProductsAPI", path: "../ProductsAPI"),
+            ]
         ),
     ]
 )

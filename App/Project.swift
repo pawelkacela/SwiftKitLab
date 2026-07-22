@@ -36,7 +36,10 @@ let project = Project(
             buildableFolders: [
                 "Tests"
             ],
-            dependencies: [.target(name: "SwiftKitLab")]
+            dependencies: [
+                .target(name: "SwiftKitLab"),
+                .project(target: "AppDomain", path: "../AppDomain"),
+            ]
         ),
     ]
 )
