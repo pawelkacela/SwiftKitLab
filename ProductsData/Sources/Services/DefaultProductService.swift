@@ -30,26 +30,3 @@ public final class DefaultProductService: ProductService {
         return response.products.map { $0.toDomain() }
     }
 }
-
-public struct MockProductService: ProductService {
-    
-    let error: ApiError?
-    let result: [Product]
-    
-    public init(error: ApiError? = nil,
-         result: [Product] = [Product.example]
-    ) {
-        self.error = error
-        self.result = result
-    }
-    
-    public func fetch(skip: Int, limit: Int) async throws -> [Product] {
-        if let error {
-            throw error
-        } else {
-            return result
-        }
-    }
-}
-
-
