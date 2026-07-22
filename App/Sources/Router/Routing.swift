@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 protocol Routing {
     
     var path: NavigationPath { get }

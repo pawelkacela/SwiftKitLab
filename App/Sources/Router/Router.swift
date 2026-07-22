@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 
-// consider mainActor?
+@MainActor
 @Observable
-class Router: Routing {
+final class Router: Routing {
     
     var path = NavigationPath()
     
@@ -39,5 +39,4 @@ class Router: Routing {
     }
     
 }
-
 

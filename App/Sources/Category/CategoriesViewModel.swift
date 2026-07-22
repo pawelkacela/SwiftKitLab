@@ -8,8 +8,9 @@
 import Foundation
 import Networking
 
+@MainActor
 @Observable
-class CategoriesViewModel {
+final class CategoriesViewModel {
     
     var categories: [String] = []
     let service: CategoryService

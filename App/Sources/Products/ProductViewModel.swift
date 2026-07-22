@@ -8,8 +8,9 @@
 import Foundation
 import AppDomain
 
+@MainActor
 @Observable
-class ProductsViewModel {
+final class ProductsViewModel {
     
     var products: [Product]
     var errorMessage: String?

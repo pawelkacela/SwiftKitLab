@@ -31,8 +31,9 @@ struct DetailView: View {
     }
 }
 
+@MainActor
 @Observable
-class DetailViewModel {
+final class DetailViewModel {
     
     let id: Int
     private let router: Router
@@ -62,8 +63,9 @@ struct HomeView: View {
     }
 }
 
+@MainActor
 @Observable
-class HomeViewModel {
+final class HomeViewModel {
     
     private let router: Routing
     
