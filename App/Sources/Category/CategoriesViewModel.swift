@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Networking
+import AppDomain
 
 @MainActor
 @Observable
@@ -15,7 +15,7 @@ final class CategoriesViewModel {
     var categories: [String] = []
     let service: CategoryService
     
-    init(service: CategoryService = DefaultCategoryService()
+    init(service: CategoryService
     ) {
         self.service = service
     }
