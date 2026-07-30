@@ -16,8 +16,7 @@ struct ProductListView: View {
         List {
             ForEach(viewModel.products) { product in
                 ProductRow(product: product)
-                    .padding(40)
-                
+                    .padding(16)
             }
         }
         .overlay(content: {
