@@ -16,8 +16,9 @@ struct ProductListView: View {
         List {
             ForEach(viewModel.products) { product in
                 ProductRow(product: product)
-                    .padding(16)
+                    .padding(8)
             }
+            .listRowSeparator(.hidden)
         }
         .overlay(content: {
             if let errorMessage = viewModel.errorMessage {
