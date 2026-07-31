@@ -16,13 +16,20 @@ final class ProductsViewModel {
     var errorMessage: String?
     var isLoading: Bool = false
     
-    let service: ProductService
+    private let service: ProductService
+    private let router: Routing
     
     init(products: [Product] = [],
-         service: ProductService
+         service: ProductService,
+         router: Routing
     ) {
         self.products = products
         self.service = service
+        self.router = router
+    }
+    
+    func didSelectProduct(with ID: Int) {
+        router.push(.detail(id: ID))
     }
     
     func fetchProducts() async {

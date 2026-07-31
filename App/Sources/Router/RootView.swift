@@ -39,7 +39,8 @@ struct RootView: View {
         case .detail(let id):
             DetailView(viewModel: DetailViewModel(id: id, router: router))
         case .productList:
-            let vm = ProductsViewModel(service: dependencies.productService)
+            let vm = ProductsViewModel(service: dependencies.productService,
+                                       router: router)
             ProductListView(viewModel: vm)
         }
     }
