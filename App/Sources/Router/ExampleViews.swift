@@ -15,16 +15,17 @@ struct DetailView: View {
     
     var body: some View {
         VStack {
+            
             Text("Detail \(viewModel.id)")
-            Button("what") {
+            DefaultButton("what") {
                 router.push(.detail(id: 67))
             }
             
-            Button("pop") {
+            DefaultButton("pop") {
                 router.pop()
             }
             
-            Button("popToRoot") {
+            DefaultButton("popToRoot") {
                 router.popToRoot()
             }
         }
