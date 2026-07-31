@@ -17,9 +17,6 @@ struct DetailView: View {
         VStack {
             
             Text("Detail \(viewModel.id)")
-            DefaultButton("what") {
-                router.push(.detail(id: 67))
-            }
             
             DefaultButton("pop") {
                 router.pop()
