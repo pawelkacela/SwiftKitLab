@@ -49,12 +49,16 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
+            
             Text("HomeView!")
-            Button("Go to detail") {
+                .font(.largeTitle)
+                .padding(16)
+            
+            DefaultButton("Go to detail") {
                 viewModel.didSelectItem()
             }
             
-            Button("Products") {
+            DefaultButton("Products") {
                 viewModel.didTapProducts()
             }
         }
