@@ -15,8 +15,14 @@ struct ProductListView: View {
     var body: some View {
         List {
             ForEach(viewModel.products) { product in
-                ProductRow(product: product)
-                    .padding(8)
+                
+                Button {
+                    viewModel.didSelectProduct(with: product.id)
+                } label: {
+                    ProductRow(product: product)
+                        .padding(8)
+                }
+                    
             }
             .listRowSeparator(.hidden)
         }
@@ -42,12 +48,14 @@ struct ProductListView: View {
 
 
 #Preview("Sucess") {
-    @State @Previewable var viewModel = ProductsViewModel(service: MockProductService())
+    @State @Previewable var viewModel = ProductsViewModel(service: MockProductService(),
+                                                          router: Router())
     ProductListView(viewModel: viewModel)
 }
 
 
 #Preview("Error") {
-    @State @Previewable var viewModel = ProductsViewModel(service: MockProductService(error: .invalidResponse))
+    @State @Previewable var viewModel = ProductsViewModel(service: MockProductService(error: .invalidResponse),
+                                                          router: Router())
     ProductListView(viewModel: viewModel)
 }
