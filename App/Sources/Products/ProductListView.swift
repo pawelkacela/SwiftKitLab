@@ -26,11 +26,29 @@ struct ProductListView: View {
             }
             .listRowSeparator(.hidden)
         }
-        .overlay(content: {
-            if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
+        .overlay(alignment: .bottom,
+                 content: {
+            
+            switch viewModel.loadingState {
+            case .initial, .loading:
+                ProgressView()
+                    .controlSize(.large)
+                    .frame(maxHeight: .infinity)
+            case .loadingMore:
+                ProgressView()
+                    .controlSize(.regular)
+                    .padding()
+            case .loaded:
+                EmptyView()
+            case .initialLoadError(let err):
+                Text(err)
+                    .foregroundStyle(Color.red)
+            case .loadMoreError(let err):
+                Text(err)
+                    .foregroundStyle(Color.red)
+                    .padding()
             }
+            
         })
         .task {
             await viewModel.fetchProducts()

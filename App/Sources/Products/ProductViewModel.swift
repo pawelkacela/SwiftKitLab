@@ -12,9 +12,26 @@ import AppDomain
 @Observable
 final class ProductsViewModel {
     
-    var products: [Product]
-    var errorMessage: String?
-    var isLoading: Bool = false
+    enum LoadingState {
+        case initial
+        case loading
+        case loadingMore
+        case loaded
+        case initialLoadError(String)
+        case loadMoreError(String)
+        
+        var canLoad: Bool {
+            switch self {
+            case .initial, .loaded:
+                true
+            case .loading, .loadingMore, .initialLoadError, .loadMoreError:
+                false
+            }
+        }
+    }
+    
+    private(set) var products: [Product]
+    private(set) var loadingState: LoadingState = .initial
     
     private let service: ProductService
     private let router: Routing
@@ -33,31 +50,29 @@ final class ProductsViewModel {
     }
     
     func fetchProducts() async {
-        guard isLoading == false else { return }
-        guard products.isEmpty else { return }
-        
-        isLoading = true
-        defer { isLoading = false }
+        guard products.isEmpty, loadingState.canLoad else { return }
+        loadingState = .loading
         
         do {
             self.products = try await service.fetch(skip: 0, limit: 10)
+            loadingState = .loaded
         }
         catch {
-            self.errorMessage = error.localizedDescription
+            self.loadingState = .initialLoadError(error.localizedDescription)
         }
     }
     
     func fetchMore() async {
-        guard isLoading == false else { return }
-        isLoading = true
-        defer { isLoading = false }
+        guard loadingState.canLoad else { return }
+        loadingState = .loadingMore
         
         do {
             let newProducts = try await service.fetch(skip: products.count, limit: 10)
             self.products.append(contentsOf: newProducts)
+            loadingState = .loaded
         }
         catch {
-            self.errorMessage = error.localizedDescription
+            self.loadingState = .loadMoreError(error.localizedDescription)
         }
     }
     
