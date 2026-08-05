@@ -11,4 +11,5 @@ public struct ProductAPIModel: Codable, Identifiable {
     public let id: Int
     public let title: String
     public let price: Double
+    public let thumbnail: String
 }

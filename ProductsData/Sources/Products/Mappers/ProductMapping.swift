@@ -13,6 +13,6 @@ import ProductsAPI
 
 extension ProductAPIModel {
     public func toDomain() -> Product {
-        Product(id: id, title: title, price: price)
+        Product(id: id, title: title, price: price, thumbnail: thumbnail)
     }
 }
