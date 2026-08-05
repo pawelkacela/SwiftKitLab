@@ -14,14 +14,29 @@ struct ProductRow: View {
         
         HStack {
             
-            Image(systemName: "camera")
-                .font(.system(size: 26, weight: .semibold))
-                .foregroundStyle(.primary)
-                .frame(width: 56, height: 56)
-                .glassEffect(
-                    .regular.tint(.blue.opacity(0.18)),
-                    in: .rect(cornerRadius: 18)
-                )
+            AsyncImage(url: URL(string: product.thumbnail)) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFill()
+                case .failure:
+                    Image(systemName: "camera")
+                        .resizable()
+                @unknown default:
+                    Image(systemName: "camera")
+                        .resizable()
+                }
+            }
+            .font(.system(size: 26, weight: .semibold))
+            .foregroundStyle(.primary)
+            .frame(width: 80, height: 80)
+            .glassEffect(
+                .regular.tint(.blue.opacity(0.18)),
+                in: .rect(cornerRadius: 18)
+            )
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(product.title)
