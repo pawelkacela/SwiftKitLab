@@ -8,21 +8,27 @@ import AppDomain
 struct ProductsViewModelTests {
 
     @Test func initialLoadUsesServiceResult() async {
-        let expected = [Product(id: 1, title: "Keyboard", price: 99)]
-        let viewModel = ProductsViewModel(service: ProductServiceStub(result: .success(expected)))
+        let expected = [Product(id: 1, title: "Keyboard", price: 99, thumbnail: "keyboard.png")]
+        let viewModel = ProductsViewModel(
+            service: ProductServiceStub(result: .success(expected)),
+            router: Router()
+        )
 
         await viewModel.fetchProducts()
 
         #expect(viewModel.products.map(\.id) == expected.map(\.id))
-        #expect(viewModel.errorMessage == nil)
-        #expect(viewModel.isLoading == false)
+        guard case .loaded = viewModel.loadingState else {
+            Issue.record("Expected the view model to finish loading")
+            return
+        }
     }
 
     @Test func initialLoadKeepsExistingProducts() async {
-        let existing = [Product(id: 1, title: "Keyboard", price: 99)]
+        let existing = [Product(id: 1, title: "Keyboard", price: 99, thumbnail: "keyboard.png")]
         let viewModel = ProductsViewModel(
             products: existing,
-            service: ProductServiceStub(result: .success([]))
+            service: ProductServiceStub(result: .success([])),
+            router: Router()
         )
 
         await viewModel.fetchProducts()
@@ -31,29 +37,37 @@ struct ProductsViewModelTests {
     }
 
     @Test func loadingMoreAppendsServiceResult() async {
-        let existing = [Product(id: 1, title: "Keyboard", price: 99)]
-        let more = [Product(id: 2, title: "Mouse", price: 49)]
+        let existing = [Product(id: 1, title: "Keyboard", price: 99, thumbnail: "keyboard.png")]
+        let more = [Product(id: 2, title: "Mouse", price: 49, thumbnail: "mouse.png")]
         let viewModel = ProductsViewModel(
             products: existing,
-            service: ProductServiceStub(result: .success(more))
+            service: ProductServiceStub(result: .success(more)),
+            router: Router()
         )
 
         await viewModel.fetchMore()
 
         #expect(viewModel.products.map(\.id) == (existing + more).map(\.id))
-        #expect(viewModel.errorMessage == nil)
+        guard case .loaded = viewModel.loadingState else {
+            Issue.record("Expected the view model to finish loading more products")
+            return
+        }
     }
 
     @Test func loadFailureExposesLocalizedError() async {
         let viewModel = ProductsViewModel(
-            service: ProductServiceStub(result: .failure(ProductServiceError.unavailable))
+            service: ProductServiceStub(result: .failure(ProductServiceError.unavailable)),
+            router: Router()
         )
 
         await viewModel.fetchProducts()
 
         #expect(viewModel.products.isEmpty)
-        #expect(viewModel.errorMessage == "Products are unavailable.")
-        #expect(viewModel.isLoading == false)
+        guard case .initialLoadError(let message) = viewModel.loadingState else {
+            Issue.record("Expected an initial-load error")
+            return
+        }
+        #expect(message == "Products are unavailable.")
     }
 
 }
