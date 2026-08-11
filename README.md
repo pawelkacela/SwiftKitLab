@@ -23,25 +23,19 @@ The current example fetches paginated product data from the [DummyJSON](https://
 
 ## Architecture
 
-The project uses a pragmatic layered architecture split across independent modules:
+The project uses a pragmatic layered architecture split across separate modules. Arrows below indicate compile-time dependencies:
 
 ```text
-SwiftKitLab (App)
-    │
-    ├── AppDomain
-    │     Domain models and service contracts
-    │
-    └── ProductsData
-          Service implementations and model mapping
-              │
-              ├── ProductsAPI
-              │     API models and endpoint definitions
-              │
-              └── Networking
-                    Request building, URLSession, decoding, and errors
+SwiftKitLab (App) ───┬──▶ AppDomain
+                     ├──▶ ProductsData ───┬──▶ AppDomain
+                     │                      ├──▶ ProductsAPI ──▶ Networking
+                     │                      └──▶ Networking
+                     └──▶ Networking
 ```
 
-Dependencies point toward the domain layer. `AppDomain` has no knowledge of networking or concrete data providers, while `ProductsData` implements its service protocols using `ProductsAPI` and `Networking`. This keeps business-facing models and contracts independent from transport details.
+`AppDomain`, `ProductsData`, `ProductsAPI`, and `Networking` are sibling framework modules rather than nested components. `AppDomain` and `Networking` have no module dependencies. `ProductsAPI` builds endpoint definitions on top of `Networking`, while `ProductsData` implements the service contracts from `AppDomain` using `ProductsAPI` and `Networking`. The app target acts as the composition root and connects these modules.
+
+This structure keeps business-facing models and contracts independent from transport details: `AppDomain` has no knowledge of networking or concrete data providers, and the dependency direction never points from it into the data or networking layers.
 
 ### Module responsibilities
 
