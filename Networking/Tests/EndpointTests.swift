@@ -28,6 +28,15 @@ struct EndpointTests {
         #expect(request.value(forHTTPHeaderField: "Content-Type") == "application/json")
         #expect(request.value(forHTTPHeaderField: "Accept") == "application/json")
     }
+    
+    @Test func includesEndpointBodyInRequest() throws {
+        let endpoint = BodyEndpoint()
+        let baseURL = try #require(URL(string: "https://example.com"))
+
+        let request = try endpoint.makeRequest(baseURL: baseURL)
+
+        #expect(request.httpBody == endpoint.body)
+    }
 }
 
 private struct TestEndpoint: Endpoint {
@@ -45,4 +54,17 @@ private struct HeaderEndpoint: Endpoint {
         "Content-Type": "application/json",
         "Accept": "application/json"
     ]
+}
+
+private struct BodyEndpoint: Endpoint {
+    let path = "login"
+    let method = HTTPMethod.post
+    let queryItems: [URLQueryItem] = []
+
+    let body = Data(#"""
+    {
+        "username": "test",
+        "password": "secret"
+    }
+    """#.utf8)
 }
