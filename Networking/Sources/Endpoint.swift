@@ -21,6 +21,7 @@ public protocol Endpoint {
     var method: HTTPMethod { get }
     var queryItems: [URLQueryItem] { get }
     var headers: [String: String] { get }
+    var body: Data? { get }
     
     func makeRequest(baseURL: URL) throws -> URLRequest
 }
@@ -31,6 +32,10 @@ public extension Endpoint {
     var headers: [String: String] {
         [:]
     }
+    
+    var body: Data? {
+         nil
+     }
     
     func makeRequest(baseURL: URL) throws -> URLRequest {
         
@@ -45,6 +50,7 @@ public extension Endpoint {
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
+        request.httpBody = body
         request.addHeaders(headers)
         
         return request
